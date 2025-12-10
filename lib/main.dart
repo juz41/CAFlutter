@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       TransitionRule(
         fromState: 1,
         toState: 0,
-        neighborCounts: {1: [1, 4, 5, 6, 7, 8]},
+        neighborCounts: {1: [0, 1, 4, 5, 6, 7, 8]},
       ),
       TransitionRule(
         fromState: 0,
