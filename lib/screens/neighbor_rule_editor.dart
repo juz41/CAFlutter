@@ -23,13 +23,13 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
 
     return Scaffold(
       appBar: AppBar(
-          title:
-              Text(AppLocalizations.of(context)!.multiStateRuleEditor)),
+          title: Text(AppLocalizations.of(context)!.multiStateRuleEditor)),
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
           Text(AppLocalizations.of(context)!.states,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           StateRow(
             states: sim.states,
             onUpdate: () => setState(() {}),
@@ -117,7 +117,7 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
                 setState(() {});
               },
             );
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -170,8 +170,8 @@ class StateRow extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
-                      decoration:
-                          InputDecoration(labelText: AppLocalizations.of(context)!.stateName),
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.stateName),
                       onChanged: (v) => newName = v,
                     ),
                     const SizedBox(height: 12),
@@ -226,6 +226,8 @@ class StateChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        final sim = context.read<SimulationProvider>(); // capture BEFORE await
+
         String newName = name;
         Color picked = color;
         bool removeState = false;
@@ -239,7 +241,8 @@ class StateChip extends StatelessWidget {
               children: [
                 TextField(
                   controller: TextEditingController(text: name),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.name),
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.name),
                   onChanged: (v) => newName = v,
                 ),
                 const SizedBox(height: 12),
@@ -273,12 +276,12 @@ class StateChip extends StatelessWidget {
         );
 
         if (removeState) {
-          final sim = context.read<SimulationProvider>();
-          sim.removeStateAt(index);
+          sim.removeStateAt(index); // safe, captured before async gap
         } else if (newName.isNotEmpty) {
           onRenameOrColorChange(index, newName, picked);
         }
       },
+
       child: Chip(label: Text(name), backgroundColor: color),
     );
   }

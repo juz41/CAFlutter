@@ -61,11 +61,13 @@ class MyApp extends StatelessWidget {
             themeMode: themeProvider.themeMode,
             theme: ThemeData(
               useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.light),
+              colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.blue, brightness: Brightness.light),
             ),
             darkTheme: ThemeData(
               useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
+              colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.blue, brightness: Brightness.dark),
             ),
             localizationsDelegates: const [
               AppLocalizations.delegate,

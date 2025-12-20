@@ -54,11 +54,11 @@ void gifIsolateEntry(GifIsolateRequest request) {
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        final colorValue = sim.states[sim.grid[r][c].state].color.value;
+        final colorInt = sim.states[sim.grid[r][c].state].color.toARGB32();
         final pixelColor = img.ColorRgb8(
-          (colorValue >> 16) & 0xFF,
-          (colorValue >> 8) & 0xFF,
-          colorValue & 0xFF,
+          (colorInt >> 16) & 0xFF, // Red
+          (colorInt >> 8) & 0xFF,  // Green
+          colorInt & 0xFF,         // Blue
         );
 
         for (int dy = 0; dy < request.cellSize; dy++) {
