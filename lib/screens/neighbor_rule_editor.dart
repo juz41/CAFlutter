@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../models/transition_rule.dart';
 import '../providers/simulation_provider.dart';
 
@@ -16,17 +17,19 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
   int? selectedToState;
   Map<int, List<int>> neighborCounts = {};
 
-
   @override
   Widget build(BuildContext context) {
     final sim = Provider.of<SimulationProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Multi-State Rule Editor')),
+      appBar: AppBar(
+          title:
+              Text(AppLocalizations.of(context)!.multiStateRuleEditor)),
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
-          const Text('States:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(AppLocalizations.of(context)!.states,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           StateRow(
             states: sim.states,
             onUpdate: () => setState(() {}),
@@ -36,7 +39,8 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
             },
             onRemove: (index) {
               sim.states.removeAt(index);
-              sim.rules.removeWhere((r) => r.fromState == index || r.toState == index);
+              sim.rules.removeWhere(
+                  (r) => r.fromState == index || r.toState == index);
               setState(() {});
             },
             onRenameOrColorChange: (index, name, color) {
@@ -46,25 +50,28 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
             },
           ),
           const Divider(height: 24),
-          const Text('Create Rule:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(AppLocalizations.of(context)!.createRule,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           DropdownButton<int>(
-            hint: const Text('From State'),
+            hint: Text(AppLocalizations.of(context)!.fromState),
             value: selectedFromState,
             items: List.generate(sim.states.length, (i) {
-              return DropdownMenuItem(value: i, child: Text(sim.states[i].name));
+              return DropdownMenuItem(
+                  value: i, child: Text(sim.states[i].name));
             }),
             onChanged: (v) => setState(() => selectedFromState = v),
           ),
           DropdownButton<int>(
-            hint: const Text('To State'),
+            hint: Text(AppLocalizations.of(context)!.toState),
             value: selectedToState,
             items: List.generate(sim.states.length, (i) {
-              return DropdownMenuItem(value: i, child: Text(sim.states[i].name));
+              return DropdownMenuItem(
+                  value: i, child: Text(sim.states[i].name));
             }),
             onChanged: (v) => setState(() => selectedToState = v),
           ),
           const SizedBox(height: 12),
-          const Text('Neighbor Counts:'),
+          Text(AppLocalizations.of(context)!.neighborCounts),
           Wrap(
             spacing: 8,
             children: List.generate(sim.states.length, (i) {
@@ -81,19 +88,19 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
               sim.addRule(TransitionRule(
                 fromState: selectedFromState!,
                 toState: selectedToState!,
-                neighborCounts: Map.from(neighborCounts), // now Map<int,List<int>>
+                neighborCounts: Map.from(neighborCounts),
               ));
               selectedFromState = null;
               selectedToState = null;
               neighborCounts.clear();
               setState(() {});
             },
-            child: const Text('Add Rule'),
+            child: Text(AppLocalizations.of(context)!.addRule),
           ),
           const SizedBox(height: 12),
-          const Text('Existing Rules:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(AppLocalizations.of(context)!.existingRules,
+              style: TextStyle(fontWeight: FontWeight.bold)),
           ...sim.rules.asMap().entries.map((entry) {
-            final index = entry.key;
             final r = entry.value;
             return RuleTile(
               rule: r,
@@ -124,7 +131,8 @@ class StateRow extends StatelessWidget {
   final VoidCallback onUpdate;
   final void Function(String name, Color color) onAdd;
   final void Function(int index) onRemove;
-  final void Function(int index, String name, Color color) onRenameOrColorChange;
+  final void Function(int index, String name, Color color)
+      onRenameOrColorChange;
 
   const StateRow({
     super.key,
@@ -153,16 +161,17 @@ class StateRow extends StatelessWidget {
         GestureDetector(
           onTap: () async {
             String newName = '';
-            Color newColor = Colors.grey;
+            Color newColor = Colors.black;
             await showDialog(
               context: context,
               builder: (_) => AlertDialog(
-                title: const Text('Add New State'),
+                title: Text(AppLocalizations.of(context)!.addNewState),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
-                      decoration: const InputDecoration(labelText: 'State Name'),
+                      decoration:
+                          InputDecoration(labelText: AppLocalizations.of(context)!.stateName),
                       onChanged: (v) => newName = v,
                     ),
                     const SizedBox(height: 12),
@@ -175,11 +184,11 @@ class StateRow extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                   ),
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text('Add'),
+                    child: Text(AppLocalizations.of(context)!.add),
                   ),
                 ],
               ),
@@ -201,7 +210,8 @@ class StateChip extends StatelessWidget {
   final String name;
   final Color color;
   final void Function(int index) onRemove;
-  final void Function(int index, String name, Color color) onRenameOrColorChange;
+  final void Function(int index, String name, Color color)
+      onRenameOrColorChange;
 
   const StateChip({
     super.key,
@@ -223,13 +233,13 @@ class StateChip extends StatelessWidget {
         await showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: const Text('Edit State'),
+            title: Text(AppLocalizations.of(context)!.editState),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: TextEditingController(text: name),
-                  decoration: const InputDecoration(labelText: 'Name'),
+                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.name),
                   onChanged: (v) => newName = v,
                 ),
                 const SizedBox(height: 12),
@@ -239,23 +249,24 @@ class StateChip extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent),
                   onPressed: () {
                     removeState = true;
                     Navigator.pop(context);
                   },
-                  child: const Text('Remove State'),
+                  child: Text(AppLocalizations.of(context)!.removeState),
                 ),
               ],
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context)!.cancel),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Save'),
+                child: Text(AppLocalizations.of(context)!.save),
               ),
             ],
           ),
@@ -277,7 +288,8 @@ class NeighborCountRow extends StatelessWidget {
   final String stateName;
   final void Function(List<int> values) onChanged;
 
-  const NeighborCountRow({super.key, required this.stateName, required this.onChanged});
+  const NeighborCountRow(
+      {super.key, required this.stateName, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -310,19 +322,24 @@ class NeighborCountRow extends StatelessWidget {
   }
 }
 
-
 class RuleTile extends StatelessWidget {
   final TransitionRule rule;
   final List states;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
-  const RuleTile({super.key, required this.rule, required this.states, required this.onEdit, required this.onDelete});
+  const RuleTile(
+      {super.key,
+      required this.rule,
+      required this.states,
+      required this.onEdit,
+      required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('${states[rule.fromState].name} → ${states[rule.toState].name}'),
+      title:
+          Text('${states[rule.fromState].name} → ${states[rule.toState].name}'),
       subtitle: Text(rule.neighborCounts.entries
           .map((e) => '${states[e.key].name}: ${e.value}')
           .join(', ')),

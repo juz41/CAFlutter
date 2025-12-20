@@ -22,7 +22,9 @@ class ImageIsolateRequest {
 }
 
 void imageIsolateEntry(ImageIsolateRequest request) {
-  final image = img.Image(width: request.cols * request.cellSize, height: request.rows * request.cellSize);
+  final image = img.Image(
+      width: request.cols * request.cellSize,
+      height: request.rows * request.cellSize);
 
   for (int r = 0; r < request.rows; r++) {
     for (int c = 0; c < request.cols; c++) {
@@ -34,7 +36,8 @@ void imageIsolateEntry(ImageIsolateRequest request) {
       );
       for (int dy = 0; dy < request.cellSize; dy++) {
         for (int dx = 0; dx < request.cellSize; dx++) {
-          image.setPixel(c * request.cellSize + dx, r * request.cellSize + dy, pixelColor);
+          image.setPixel(
+              c * request.cellSize + dx, r * request.cellSize + dy, pixelColor);
         }
       }
     }

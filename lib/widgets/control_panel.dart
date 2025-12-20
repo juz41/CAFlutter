@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/simulation_provider.dart';
 
 class ControlPanel extends StatelessWidget {
@@ -9,45 +10,51 @@ class ControlPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final sim = Provider.of<SimulationProvider>(context);
     return Container(
-      color: Colors.grey[100],
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
         children: [
           IconButton(
-            tooltip: sim.isRunning ? 'Pause' : 'Start',
+            tooltip: sim.isRunning
+                ? AppLocalizations.of(context)!.pause
+                : AppLocalizations.of(context)!.start,
             icon: Icon(sim.isRunning ? Icons.pause : Icons.play_arrow),
             onPressed: sim.toggleRunning,
           ),
           IconButton(
-            tooltip: 'Step',
+            tooltip: AppLocalizations.of(context)!.step,
             icon: const Icon(Icons.skip_next),
             onPressed: sim.step,
           ),
           IconButton(
-            tooltip: 'Reset (clear)',
+            tooltip: AppLocalizations.of(context)!.reset,
             icon: const Icon(Icons.refresh),
             onPressed: sim.reset,
           ),
           IconButton(
-            tooltip: 'Clear',
+            tooltip: AppLocalizations.of(context)!.clear,
             icon: const Icon(Icons.clear),
             onPressed: sim.clear,
           ),
           const SizedBox(width: 12),
-          const Text('Speed:'),
-          Slider(
-            value: sim.stepInterval.inMilliseconds.toDouble(),
-            min: 50,
-            max: 1000,
-            divisions: 19,
-            label: '${sim.stepInterval.inMilliseconds} ms',
-            onChanged: (v) {
-              sim.setInterval(Duration(milliseconds: v.toInt()));
-            },
+          Text(
+            AppLocalizations.of(context)!.speed,
+            softWrap: false,
+          ),
+          Expanded(
+            child: Slider(
+              value: sim.stepInterval.inMilliseconds.toDouble(),
+              min: 50,
+              max: 1000,
+              divisions: 19,
+              label: '${sim.stepInterval.inMilliseconds} ms',
+              onChanged: (v) {
+                sim.setInterval(Duration(milliseconds: v.toInt()));
+              },
+            ),
           ),
           IconButton(
-            tooltip: 'Randomize Grid',
-            icon: const Icon(Icons.casino), // Dice symbol
+            tooltip: AppLocalizations.of(context)!.randomize,
+            icon: const Icon(Icons.casino),
             onPressed: sim.randomize,
           ),
         ],

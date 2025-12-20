@@ -1,0 +1,52 @@
+{
+  "@@locale": "pl",
+  "appTitle": "Automaty Komórkowe",
+  "menu": "Menu",
+  "gridSize": "Rozmiar siatki",
+  "rows": "Wiersze",
+  "columns": "Kolumny",
+  "resizeGrid": "Zmień rozmiar",
+  "editRules": "Edytuj reguły / stany",
+  "exportPng": "Eksportuj PNG",
+  "exportGif": "Eksportuj GIF",
+  "steps": "Kroki",
+  "start": "Start",
+  "pause": "Pauza",
+  "step": "Krok",
+  "reset": "Reset",
+  "clear": "Wyczyść",
+  "speed": "Prędkość",
+  "randomize": "Losowa siatka",
+  "savedImage": "Zapisano obraz w {path}",
+  "@savedImage": {
+    "description": "Message shown after exporting PNG",
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "savedGif": "Zapisano GIF w {path}",
+  "@savedGif": {
+    "description": "Message shown after exporting GIF",
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "darkMode": "Tryb ciemny",
+  "lightMode": "Tryb jasny",
+    "multiStateRuleEditor": "Edytor reguł wielostanowych",
+    "states": "Stany",
+    "createRule": "Utwórz regułę",
+    "fromState": "Stan początkowy",
+    "toState": "Stan końcowy",
+    "neighborCounts": "Liczba sąsiadów",
+    "addRule": "Dodaj regułę",
+    "existingRules": "Istniejące reguły",
+    "addNewState": "Dodaj nowy stan",
+    "stateName": "Nazwa stanu",
+    "editState": "Edytuj stan",
+    "removeState": "Usuń stan",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "add": "Dodaj",
+    "name": "Nazwa"
+}

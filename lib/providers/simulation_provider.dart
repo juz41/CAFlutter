@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as img;
 import '../models/cell.dart';
 import '../models/state_definition.dart';
 import '../models/transition_rule.dart';
@@ -72,9 +71,9 @@ class SimulationProvider extends ChangeNotifier {
     }
   }
 
-
   void step() {
-    final newGrid = List.generate(rows, (_) => List.generate(cols, (_) => Cell()));
+    final newGrid =
+        List.generate(rows, (_) => List.generate(cols, (_) => Cell()));
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
@@ -175,7 +174,9 @@ class SimulationProvider extends ChangeNotifier {
 
     // Shift remaining rules down
     rules = rules.map((r) {
-      if (r.fromState > index || r.toState > index || r.neighborCounts.keys.any((k) => k == index)) {
+      if (r.fromState > index ||
+          r.toState > index ||
+          r.neighborCounts.keys.any((k) => k == index)) {
         return TransitionRule(
           fromState: r.fromState > index ? r.fromState - 1 : r.fromState,
           toState: r.toState > index ? r.toState - 1 : r.toState,
@@ -194,5 +195,4 @@ class SimulationProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
 }

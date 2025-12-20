@@ -24,7 +24,8 @@ class CellGrid extends StatelessWidget {
           builder: (context, constraints) {
             final scaleX = constraints.maxWidth / (cols * cellSize);
             final scaleY = constraints.maxHeight / (rows * cellSize);
-            final scale = fitToContainer ? (scaleX < scaleY ? scaleX : scaleY) : 1.0;
+            final scale =
+                fitToContainer ? (scaleX < scaleY ? scaleX : scaleY) : 1.0;
 
             return InteractiveViewer(
               panEnabled: true,
@@ -42,16 +43,17 @@ class CellGrid extends StatelessWidget {
                       children: List.generate(cols, (col) {
                         final cell = sim.grid[row][col];
                         return GestureDetector(
-                          onTap: () => sim.toggleCell(row, col),
-                          child: Container(
-                            width: cellSize * scale,
-                            height: cellSize * scale,
-                            decoration: BoxDecoration(
-                              color: sim.states[cell.state].color,
-                              border: Border.all(color: Colors.grey[300]!),
-                            ),
-                          )
-                        );
+                            onTap: () => sim.toggleCell(row, col),
+                            child: Container(
+                              width: cellSize * scale,
+                              height: cellSize * scale,
+                              decoration: BoxDecoration(
+                                color: sim.states[cell.state].color,
+                                border: Border.all(
+                                  color: Theme.of(context).dividerColor,
+                                ),
+                              ),
+                            ));
                       }),
                     );
                   }),

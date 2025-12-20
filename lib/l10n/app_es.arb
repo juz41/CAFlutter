@@ -1,0 +1,52 @@
+{
+  "@@locale": "es",
+  "appTitle": "Autómatas Celulares",
+  "menu": "Menú",
+  "gridSize": "Tamaño de la cuadrícula",
+  "rows": "Filas",
+  "columns": "Columnas",
+  "resizeGrid": "Cambiar tamaño",
+  "editRules": "Editar reglas / estados",
+  "exportPng": "Exportar PNG",
+  "exportGif": "Exportar GIF",
+  "steps": "Pasos",
+  "start": "Iniciar",
+  "pause": "Pausa",
+  "step": "Paso",
+  "reset": "Restablecer",
+  "clear": "Borrar",
+  "speed": "Velocidad",
+  "randomize": "Aleatorizar cuadrícula",
+  "savedImage": "Imagen guardada en {path}",
+  "@savedImage": {
+    "description": "Message shown after exporting PNG",
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "savedGif": "GIF guardado en {path}",
+  "@savedGif": {
+    "description": "Message shown after exporting GIF",
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "darkMode": "Modo oscuro",
+  "lightMode": "Modo claro",
+    "multiStateRuleEditor": "Editor de Reglas Multistado",
+    "states": "Estados:",
+    "createRule": "Crear Regla:",
+    "fromState": "Desde Estado",
+    "toState": "Hasta Estado",
+    "neighborCounts": "Conteos de Vecinos:",
+    "addNewState": "Agregar Nuevo Estado",
+    "stateName": "Nombre del Estado",
+    "cancel": "Cancelar",
+    "add": "Agregar",
+    "editState": "Editar Estado",
+    "name": "Nombre",
+    "removeState": "Eliminar Estado",
+    "save": "Guardar",
+    "existingRules": "Reglas Existentes:",
+    "addRule": "Agregar Regla"
+}

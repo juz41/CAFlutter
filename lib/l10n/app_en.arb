@@ -1,0 +1,52 @@
+{
+  "@@locale": "en",
+  "appTitle": "Cellular Automata",
+  "menu": "Menu",
+  "gridSize": "Grid Size",
+  "rows": "Rows",
+  "columns": "Columns",
+  "resizeGrid": "Resize Grid",
+  "editRules": "Edit Rules / States",
+  "exportPng": "Export PNG",
+  "exportGif": "Export GIF",
+  "steps": "Steps",
+  "start": "Start",
+  "pause": "Pause",
+  "step": "Step",
+  "reset": "Reset",
+  "clear": "Clear",
+  "speed": "Speed",
+  "randomize": "Randomize Grid",
+  "savedImage": "Saved image to {path}",
+  "@savedImage": {
+    "description": "Message shown after exporting PNG",
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "savedGif": "Saved GIF to {path}",
+  "@savedGif": {
+    "description": "Message shown after exporting GIF",
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "darkMode": "Dark mode",
+  "lightMode": "Light mode",
+    "multiStateRuleEditor": "Multi-State Rule Editor",
+    "states": "States:",
+    "createRule": "Create Rule:",
+    "fromState": "From State",
+    "toState": "To State",
+    "neighborCounts": "Neighbor Counts:",
+    "addNewState": "Add New State",
+    "stateName": "State Name",
+    "cancel": "Cancel",
+    "add": "Add",
+    "editState": "Edit State",
+    "name": "Name",
+    "removeState": "Remove State",
+    "save": "Save",
+    "existingRules": "Existing Rules:",
+    "addRule": "Add Rule"
+}

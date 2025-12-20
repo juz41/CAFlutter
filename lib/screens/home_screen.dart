@@ -1,9 +1,8 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/cell.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/simulation_provider.dart';
+import '../providers/theme_provider.dart';
 import '../utils/gif_exporter_isolate.dart';
 import '../utils/image_exporter_isolate.dart';
 import '../widgets/cell_grid.dart';
@@ -34,12 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Saved image to ${file.path}')),
+        SnackBar(
+            content: Text(AppLocalizations.of(context)!.savedImage(file.path))),
       );
     }
     setState(() => exporting = false);
   }
-
 
   final exporter = GifExporterIsolate();
 
@@ -47,13 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => exporting = true);
     final sim = Provider.of<SimulationProvider>(context, listen: false);
 
-    final path = await exporter.exportGif(
+    final file = await exporter.exportGif(
       simulation: sim,
     );
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Saved GIF to $path')),
+        SnackBar(
+            content: Text(AppLocalizations.of(context)!.savedGif(file.path))),
       );
     }
     setState(() => exporting = false);
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cellular Automata')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.appTitle)),
       drawer: _buildDrawer(context),
       body: Stack(
         children: [
@@ -76,7 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 constraints: const BoxConstraints(maxWidth: 500),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
+                  color:
+                      Theme.of(context).colorScheme.surface.withOpacity(0.95),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
@@ -105,16 +106,22 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
+          DrawerHeader(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.primary),
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
+              child: Text(
+                AppLocalizations.of(context)!.menu,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+              ),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.grid_4x4),
-            title: const Text('Grid Size'),
+            title: Text(AppLocalizations.of(context)!.gridSize),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -124,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: TextField(
                         controller: rowsController,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(labelText: 'Rows'),
+                        decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.rows),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -132,7 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: TextField(
                         controller: colsController,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(labelText: 'Columns'),
+                        decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.columns),
                       ),
                     ),
                   ],
@@ -140,18 +149,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
-                    final newRows = int.tryParse(rowsController.text) ?? sim.rows;
-                    final newCols = int.tryParse(colsController.text) ?? sim.cols;
+                    final newRows =
+                        int.tryParse(rowsController.text) ?? sim.rows;
+                    final newCols =
+                        int.tryParse(colsController.text) ?? sim.cols;
                     sim.resizeGrid(newRows, newCols);
                   },
-                  child: const Text('Resize Grid'),
+                  child: Text(AppLocalizations.of(context)!.resizeGrid),
                 ),
               ],
             ),
           ),
           ListTile(
             leading: const Icon(Icons.rule),
-            title: const Text('Edit Rules / States'),
+            title: Text(AppLocalizations.of(context)!.editRules),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -162,22 +173,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.save),
-            title: const Text('Export PNG'),
+            title: Text(AppLocalizations.of(context)!.exportPng),
             onTap: exporting ? null : _exportImage,
           ),
           ListTile(
             leading: const Icon(Icons.gif),
-            title: const Text('Export GIF'),
+            title: Text(AppLocalizations.of(context)!.exportGif),
             subtitle: TextField(
               controller: gifStepsController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Steps'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.steps),
             ),
             onTap: exporting
                 ? null
                 : () async {
-              final steps = int.tryParse(gifStepsController.text) ?? 10;
-              await _exportGif(steps: steps);
+                    final steps = int.tryParse(gifStepsController.text) ?? 10;
+                    await _exportGif(steps: steps);
+                  },
+          ),
+          Consumer<ThemeProvider>(
+            builder: (context, theme, _) {
+              return ListTile(
+                leading: Icon(
+                  theme.isDark ? Icons.dark_mode : Icons.light_mode,
+                ),
+                title: Text(
+                  theme.isDark
+                      ? AppLocalizations.of(context)!.darkMode
+                      : AppLocalizations.of(context)!.lightMode,
+                ),
+                onTap: theme.toggleTheme,
+              );
             },
           ),
         ],

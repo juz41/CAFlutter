@@ -16,7 +16,8 @@ class ImageExporterIsolate {
   }) async {
     final rows = grid.length;
     final cols = grid[0].length;
-    final gridData = List.generate(rows, (r) => List.generate(cols, (c) => grid[r][c].state));
+    final gridData = List.generate(
+        rows, (r) => List.generate(cols, (c) => grid[r][c].state));
     final colors = states.map((s) => s.color.value).toList();
 
     final receivePort = ReceivePort();
@@ -35,7 +36,8 @@ class ImageExporterIsolate {
     receivePort.close();
 
     final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/automata_${DateTime.now().millisecondsSinceEpoch}.png');
+    final file = File(
+        '${dir.path}/automata_${DateTime.now().millisecondsSinceEpoch}.png');
     await file.writeAsBytes(pngBytes);
     return file;
   }

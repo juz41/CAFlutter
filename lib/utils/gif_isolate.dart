@@ -49,7 +49,8 @@ void gifIsolateEntry(GifIsolateRequest request) {
 
   for (int i = 0; i < request.steps; i++) {
     // Render current grid
-    final image = img.Image(width: cols * request.cellSize, height: rows * request.cellSize);
+    final image = img.Image(
+        width: cols * request.cellSize, height: rows * request.cellSize);
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
@@ -62,7 +63,8 @@ void gifIsolateEntry(GifIsolateRequest request) {
 
         for (int dy = 0; dy < request.cellSize; dy++) {
           for (int dx = 0; dx < request.cellSize; dx++) {
-            image.setPixel(c * request.cellSize + dx, r * request.cellSize + dy, pixelColor);
+            image.setPixel(c * request.cellSize + dx, r * request.cellSize + dy,
+                pixelColor);
           }
         }
       }
