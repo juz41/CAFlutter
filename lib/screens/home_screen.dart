@@ -76,8 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 constraints: const BoxConstraints(maxWidth: 500),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color:
-                  Theme.of(context).colorScheme.surface.withAlpha((0.95 * 255).round()),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .surface
+                      .withAlpha((0.95 * 255).round()),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(

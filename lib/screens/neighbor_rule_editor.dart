@@ -281,7 +281,6 @@ class StateChip extends StatelessWidget {
           onRenameOrColorChange(index, newName, picked);
         }
       },
-
       child: Chip(label: Text(name), backgroundColor: color),
     );
   }

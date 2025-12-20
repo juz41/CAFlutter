@@ -20,7 +20,6 @@ class ImageExporterIsolate {
         rows, (r) => List.generate(cols, (c) => grid[r][c].state));
     final colors = states.map((s) => s.color.toARGB32()).toList();
 
-
     final receivePort = ReceivePort();
     final request = ImageIsolateRequest(
       grid: gridData,
