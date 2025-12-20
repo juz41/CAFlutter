@@ -98,7 +98,9 @@ class SimulationProvider extends ChangeNotifier {
   }
 
   Map<int, int> _countNeighborStates(int r, int c) {
-    Map<int, int> counts = {};
+    final Map<int, int> counts = {
+      for (int i = 0; i < states.length; i++) i: 0,
+    };
     for (int dr = -1; dr <= 1; dr++) {
       for (int dc = -1; dc <= 1; dc++) {
         if (dr == 0 && dc == 0) continue;
