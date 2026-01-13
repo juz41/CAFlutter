@@ -48,5 +48,7 @@
     "removeState": "Eliminar Estado",
     "save": "Guardar",
     "existingRules": "Reglas Existentes:",
-    "addRule": "Agregar Regla"
+    "addRule": "Agregar Regla",
+  "importRules": "Importes rules",
+  "exportRules": "Exportes rules"
 }

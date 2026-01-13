@@ -124,8 +124,6 @@ class _MultiStateRuleEditorState extends State<MultiStateRuleEditor> {
   }
 }
 
-// ------------------- Helper Widgets -------------------
-
 class StateRow extends StatelessWidget {
   final List states;
   final VoidCallback onUpdate;
@@ -160,7 +158,7 @@ class StateRow extends StatelessWidget {
         }),
         GestureDetector(
           onTap: () async {
-            String newName = '';
+            String newName = 'state';
             Color newColor = Colors.black;
             await showDialog(
               context: context,
@@ -193,7 +191,12 @@ class StateRow extends StatelessWidget {
                 ],
               ),
             );
-            if (newName.isNotEmpty) onAdd(newName, newColor);
+
+            if (newName.isNotEmpty) {
+              onAdd(newName, newColor);
+            } else {
+              onAdd('state', newColor);
+            }
           },
           child: const Chip(
             label: Icon(Icons.add),
@@ -226,7 +229,7 @@ class StateChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final sim = context.read<SimulationProvider>(); // capture BEFORE await
+        final sim = context.read<SimulationProvider>();
 
         String newName = name;
         Color picked = color;
@@ -276,7 +279,7 @@ class StateChip extends StatelessWidget {
         );
 
         if (removeState) {
-          sim.removeStateAt(index); // safe, captured before async gap
+          sim.removeStateAt(index);
         } else if (newName.isNotEmpty) {
           onRenameOrColorChange(index, newName, picked);
         }
@@ -304,7 +307,6 @@ class NeighborCountRow extends StatelessWidget {
           child: TextField(
             keyboardType: TextInputType.text,
             onChanged: (v) {
-              // parse comma-separated numbers
               final values = v
                   .split(',')
                   .map((e) => int.tryParse(e.trim()))
@@ -340,8 +342,8 @@ class RuleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title:
-          Text('${states[rule.fromState].name} → ${states[rule.toState].name}'),
+      title: Text(
+          '${states[rule.fromState].name} -> ${states[rule.toState].name}'),
       subtitle: Text(rule.neighborCounts.entries
           .map((e) => '${states[e.key].name}: ${e.value}')
           .join(', ')),

@@ -166,13 +166,8 @@ class SimulationProvider extends ChangeNotifier {
   }
 
   void removeStateAt(int index) {
-    // Remove the state
     states.removeAt(index);
-
-    // Remove rules that reference the deleted state
     rules.removeWhere((r) => r.fromState == index || r.toState == index);
-
-    // Shift remaining rules down
     rules = rules.map((r) {
       if (r.fromState > index ||
           r.toState > index ||
@@ -193,6 +188,25 @@ class SimulationProvider extends ChangeNotifier {
 
     clear();
 
+    notifyListeners();
+  }
+
+  Map<String, dynamic> exportRules() {
+    return {
+      'states': states.map((s) => s.toJson()).toList(),
+      'rules': rules.map((r) => r.toJson()).toList(),
+    };
+  }
+
+  void importRules(Map<String, dynamic> json) {
+    states = (json['states'] as List)
+        .map((e) => StateDefinition.fromJson(e))
+        .toList();
+
+    rules =
+        (json['rules'] as List).map((e) => TransitionRule.fromJson(e)).toList();
+
+    clear();
     notifyListeners();
   }
 }

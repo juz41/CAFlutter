@@ -8,6 +8,8 @@ import '../utils/image_exporter_isolate.dart';
 import '../widgets/cell_grid.dart';
 import '../widgets/control_panel.dart';
 import 'neighbor_rule_editor.dart';
+import 'dart:convert';
+import 'package:file_selector/file_selector.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -193,6 +195,71 @@ class _HomeScreenState extends State<HomeScreen> {
                     final steps = int.tryParse(gifStepsController.text) ?? 10;
                     await _exportGif(steps: steps);
                   },
+          ),
+          ListTile(
+            leading: const Icon(Icons.upload),
+            title: const Text('Import rules'),
+            onTap: () async {
+              Navigator.pop(context);
+
+              final XFile? file = await openFile(
+                acceptedTypeGroups: [
+                  XTypeGroup(
+                    label: 'JSON',
+                    extensions: ['json'],
+                  ),
+                ],
+              );
+
+              if (file == null) return;
+
+              try {
+                final contents = await file.readAsString();
+                final Map<String, dynamic> json = jsonDecode(contents);
+                sim.importRules(json);
+
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Rules imported')),
+                  );
+                }
+              } catch (_) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Invalid rules file')),
+                  );
+                }
+              }
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.download),
+            title: const Text('Export rules'),
+            onTap: () async {
+              Navigator.pop(context);
+
+              final String json = jsonEncode(sim.exportRules());
+
+              final FileSaveLocation? location = await getSaveLocation(
+                suggestedName: 'cellular_automata_rules.json',
+              );
+
+              if (location == null) return;
+
+              final XFile file = XFile.fromData(
+                utf8.encode(json),
+                mimeType: 'application/json',
+                name: 'cellular_automata_rules.json',
+              );
+
+              await file.saveTo(location.path);
+
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Rules exported')),
+                );
+              }
+            },
           ),
           Consumer<ThemeProvider>(
             builder: (context, theme, _) {

@@ -122,4 +122,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get addRule => 'Agregar Regla';
+
+  @override
+  String get importRules => 'Importes rules';
+
+  @override
+  String get exportRules => 'Exportes rules';
 }

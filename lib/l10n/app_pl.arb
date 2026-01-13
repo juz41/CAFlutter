@@ -48,5 +48,7 @@
     "save": "Zapisz",
     "cancel": "Anuluj",
     "add": "Dodaj",
-    "name": "Nazwa"
+    "name": "Nazwa",
+  "importRules": "Import zasad",
+  "exportRules": "Eksport zasad"
 }

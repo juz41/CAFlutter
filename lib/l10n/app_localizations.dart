@@ -321,6 +321,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Rule'**
   String get addRule;
+
+  /// No description provided for @importRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Import rules'**
+  String get importRules;
+
+  /// No description provided for @exportRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Export rules'**
+  String get exportRules;
 }
 
 class _AppLocalizationsDelegate

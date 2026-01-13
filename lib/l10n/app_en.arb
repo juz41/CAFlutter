@@ -48,5 +48,7 @@
     "removeState": "Remove State",
     "save": "Save",
     "existingRules": "Existing Rules:",
-    "addRule": "Add Rule"
+    "addRule": "Add Rule",
+    "importRules": "Import rules",
+    "exportRules": "Export rules"
 }

@@ -122,4 +122,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addRule => 'Add Rule';
+
+  @override
+  String get importRules => 'Import rules';
+
+  @override
+  String get exportRules => 'Export rules';
 }

@@ -122,4 +122,10 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get addRule => 'Dodaj regułę';
+
+  @override
+  String get importRules => 'Import zasad';
+
+  @override
+  String get exportRules => 'Eksport zasad';
 }
