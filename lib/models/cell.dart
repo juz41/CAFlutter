@@ -1,4 +1,4 @@
 class Cell {
-  int state; // index of current state
+  int state;
   Cell({this.state = 0});
 }

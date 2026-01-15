@@ -30,7 +30,6 @@ void gifIsolateEntry(GifIsolateRequest request) {
   final rows = request.initialGrid.length;
   final cols = request.initialGrid[0].length;
 
-  // Create a local simulation provider
   final sim = SimulationProvider(
     rows: rows,
     cols: cols,
@@ -38,7 +37,6 @@ void gifIsolateEntry(GifIsolateRequest request) {
     rules: request.rules,
   );
 
-  // Copy initial grid
   for (int r = 0; r < rows; r++) {
     for (int c = 0; c < cols; c++) {
       sim.grid[r][c].state = request.initialGrid[r][c].state;
@@ -48,7 +46,6 @@ void gifIsolateEntry(GifIsolateRequest request) {
   final frames = <img.Image>[];
 
   for (int i = 0; i < request.steps; i++) {
-    // Render current grid
     final image = img.Image(
         width: cols * request.cellSize, height: rows * request.cellSize);
 
@@ -72,11 +69,9 @@ void gifIsolateEntry(GifIsolateRequest request) {
 
     frames.add(image);
 
-    // Step simulation
     sim.step();
   }
 
-  // Encode GIF
   final encoder = img.GifEncoder(repeat: 0);
   for (var frame in frames) {
     encoder.addFrame(frame, duration: request.intervalMs);
